@@ -1,0 +1,7 @@
+*.pyc
+.idea
+lib/
+include/
+local/
+bin/
+03_app/ec2con.sh

@@ -1,0 +1,19 @@
+workerone:
+    image: "teerex/celery"
+    volumes:
+        - /home/ademir/workspaces/demo/data/celery/modules:/apps/modules
+        - /home/ademir/workspaces/demo/data/celery/rex:/apps/rex
+    command: "celery -A rex worker --loglevel=info"
+    environment:
+        PYTHONPATH: "/apps:/apps/modules"
+
+workertwo:
+    image: "teerex/celery"
+    volumes:
+        - /home/ademir/workspaces/demo/data/celery/modules:/apps/modules
+        - /home/ademir/workspaces/demo/data/celery/rex:/apps/rex
+    command: "celery -A rex worker --loglevel=info"
+    environment:
+        PYTHONPATH: "/apps:/apps/modules"
+
+

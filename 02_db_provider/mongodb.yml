@@ -1,0 +1,11 @@
+database:
+    image: "dockerfile/mongodb"
+    command: "mongod --rest --httpinterface"
+    ports:
+        - "27017:27017"
+        - "28017:28017"
+
+genghis:
+    image: "redbuffstudio/docker-genghis:v2.3.11-01"
+    ports:
+        - "8080:80"

@@ -1,0 +1,59 @@
+meta:
+    description: "My Amazing service"
+    image64: ""
+    display_name: "The service"
+    version: "001"
+    name: "sitedemo.yml"
+
+inputs:
+    instance_type: "t2.medium"
+    name: "hostname-0010"
+
+outputs:
+    container_id: "${container.uuid.lower}"
+    fqdn: "${instance.public_dns.lower}"
+
+providers:
+    aws:
+        version: "v001"
+    docker:
+        version: "v001"
+
+referentials:
+    image_id: "ami-1f198668"
+    key_name: "key-demo-tiad-ahmet"
+    security_group_ids: "sg-edc4bf88"
+    subnet_id: "subnet-364e0470"
+    docker_port: "2375"
+    docker_image: "ahmet2mir/sitedemo"
+
+resources:
+
+    instance:
+        type: "instance"
+        provider: "aws"
+        properties:
+            name: "${in.name}"
+            instance_type: "${in.instance_type}"
+            image_id: "${ref.image_id}"
+            key_name: "${ref.key_name}"
+            security_group_ids: "${ref.security_group_ids}"
+            subnet_id: "${ref.subnet_id}"
+        return:
+            - "uuid"
+            - "name"
+            - "public_dns"
+
+    container:
+        type: "container"
+        provider: "docker"
+        properties:
+            host: "${instance.public_dns}"
+            port: "${ref.docker_port}"
+            name: "${in.name}"
+            image: "${ref.docker_image}"
+            ports:
+                - "80:80"
+        return:
+            - "uuid"
+

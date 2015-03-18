@@ -1,0 +1,8 @@
+flower:
+    image: "totem/celery-flower-docker"
+    environment:
+        FLOWER_BASIC_AUTH: "root:changeit"
+        BROKER_URL: "amqp://myuser:mypassword@172.17.42.1:5672/myvhost"
+    ports:
+        - "5555:5555"
+
